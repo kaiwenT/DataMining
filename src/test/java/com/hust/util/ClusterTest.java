@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hust.cluster.Canopy;
+import com.hust.cluster.KMeans;
 import com.hust.convertor.Convertor;
 import com.hust.convertor.TFIDFConvertor;
 
@@ -35,16 +36,49 @@ public class ClusterTest {
         segList.add(str1);
     }
 
-    @Test
-    public void cluster() {
+     @Test
+    public void capony() {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
         List<double[]> vectors = convertor.getVector();
         Canopy canopy = new Canopy();
         canopy.setVectors(vectors);
-        canopy.setThreshold(0.9f);
-        canopy.clustering();
+        canopy.setThreshold(1f);
+        try {
+            canopy.clustering();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         List<List<Integer>> result = canopy.getResultIndex();
+        for (List<Integer> set : result) {
+            for (int index : set) {
+                String[] array = segList.get(index);
+                for (String str : array) {
+                    System.out.print(str);
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+    }
+
+//    @Test
+    public void kmeans() {
+        Convertor convertor = new TFIDFConvertor();
+        convertor.setList(segList);
+        List<double[]> vectors = convertor.getVector();
+        KMeans kmeans = new KMeans();
+        kmeans.setVectors(vectors);
+        kmeans.setIterationTimes(30);
+        kmeans.setK(3);
+        try {
+            kmeans.clustering();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        List<List<Integer>> result = kmeans.getResultIndex();
         for (List<Integer> set : result) {
             for (int index : set) {
                 String[] array = segList.get(index);

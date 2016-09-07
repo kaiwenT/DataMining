@@ -35,5 +35,5 @@ public abstract class Cluster {
         this.similarity = similarity;
     }
 
-    public abstract void clustering();
+    public abstract void clustering() throws Exception;
 }

@@ -18,9 +18,9 @@ public class Canopy extends Cluster {
     }
 
     @Override
-    public void clustering() {
+    public void clustering() throws Exception {
         if (null == vectors || vectors.size() == 0) {
-            return;
+            throw new IllegalArgumentException("must init vectors before clustering");
         }
         if (null == similarity) {
             similarity = new CosSimilarity();
