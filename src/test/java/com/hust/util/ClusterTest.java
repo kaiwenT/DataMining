@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hust.cluster.Canopy;
-import com.hust.cluster.Cluster;
 import com.hust.convertor.Convertor;
 import com.hust.convertor.TFIDFConvertor;
 
@@ -41,8 +40,9 @@ public class ClusterTest {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
         List<double[]> vectors = convertor.getVector();
-        Cluster canopy = new Canopy();
+        Canopy canopy = new Canopy();
         canopy.setVectors(vectors);
+        canopy.setThreshold(0.9f);
         canopy.clustering();
         List<List<Integer>> result = canopy.getResultIndex();
         for (List<Integer> set : result) {

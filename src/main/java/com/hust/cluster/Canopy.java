@@ -3,14 +3,23 @@ package com.hust.cluster;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hust.contrant.Constrants;
 import com.hust.similarity.CosSimilarity;
 
 public class Canopy extends Cluster {
 
+    private float threshold;
+
+    public float getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(float threshold) {
+        this.threshold = threshold;
+    }
+
     @Override
     public void clustering() {
-        if (null == vectors) {
+        if (null == vectors || vectors.size() == 0) {
             return;
         }
         if (null == similarity) {
@@ -33,7 +42,7 @@ public class Canopy extends Cluster {
             for (int j = 0; j < resultVector.size(); j++) {
                 List<double[]> tmpVector = resultVector.get(j);
                 double sim = similarity.calculate(vector, tmpVector);
-                if (sim >= Constrants.THRESHOLD) {
+                if (sim >= threshold) {
                     List<Integer> tmpIndex = resultIndex.get(j);
                     tmpIndex.add(i);
                     tmpVector.add(vector);
@@ -51,4 +60,5 @@ public class Canopy extends Cluster {
             }
         }
     }
+
 }
