@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hust.util.VectorUtil;
 
-public class CosSimilarity extends Similarity {
+public class CloestOneSimilarity extends Similarity {
 
     @Override
     public double calculate(double[] vector1, double[] vector2) {
@@ -19,11 +19,14 @@ public class CosSimilarity extends Similarity {
         if (null == vector || null == list || vector.length == 0 || list.size() == 0) {
             return 0;
         }
-        double sum = 0;
-        for (double[] tmpVec : list) {
-            sum += calculate(vector, tmpVec);
+        double maxsim = 0;
+        for (double[] elem : list) {
+            double sim = calculate(elem, vector);
+            if (maxsim < sim) {
+                maxsim = sim;
+            }
         }
-        return sum / list.size();
+        return maxsim;
     }
 
 }

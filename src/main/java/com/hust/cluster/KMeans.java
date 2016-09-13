@@ -1,6 +1,7 @@
 package com.hust.cluster;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -114,13 +115,29 @@ public class KMeans extends Cluster {
         Random randomMaker = new Random();
         for (int i = 0; i < K; i++) {
             int random = randomMaker.nextInt(vectors.size());
-            if (!centerIndexs.contains(random)) {
+            if (!centerIndexs.contains(random) && !isContain(centerPoints, vectors.get(random))) {
                 centerIndexs.add(random);
                 centerPoints.add(vectors.get(random));
             } else {
                 i--;
             }
         }
+    }
+
+    /**
+     * 判断list中是否包含vector
+     * 
+     * @param list
+     * @param vector
+     * @return
+     */
+    private boolean isContain(List<double[]> list, double[] vector) {
+        for (double[] elem : list) {
+            if (Arrays.equals(elem, vector)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -172,7 +189,7 @@ public class KMeans extends Cluster {
         double[] centerPoint = new double[length];
         for (int i = 0; i < setIndex.size(); i++) {
             for (int j = 0; j < length; j++) {
-                centerPoint[j] += vectors.get(i)[j];
+                centerPoint[j] += vectors.get(setIndex.get(i))[j];
             }
         }
         for (int i = 0; i < length; i++) {
@@ -181,4 +198,12 @@ public class KMeans extends Cluster {
         return centerPoint;
     }
 
+    // private void print(List<double[]> vectors) {
+    // for (double[] vector : vectors) {
+    // for (double elem : vector) {
+    // System.out.print(elem + "\t");
+    // }
+    // System.out.println();
+    // }
+    // }
 }

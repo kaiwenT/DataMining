@@ -10,6 +10,7 @@ import com.hust.cluster.Canopy;
 import com.hust.cluster.KMeans;
 import com.hust.convertor.Convertor;
 import com.hust.convertor.TFIDFConvertor;
+import com.hust.similarity.CloestOneSimilarity;
 
 public class ClusterTest {
 
@@ -48,7 +49,7 @@ public class ClusterTest {
         segList.add(str4);
     }
 
-//     @Test
+    // @Test
     public void capony() {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
@@ -83,7 +84,8 @@ public class ClusterTest {
         KMeans kmeans = new KMeans();
         kmeans.setVectors(vectors);
         kmeans.setIterationTimes(20);
-        kmeans.setK(3);
+        kmeans.setSimilarity(new CloestOneSimilarity());
+        kmeans.setK(4);
         try {
             kmeans.clustering();
         } catch (Exception e) {

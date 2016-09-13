@@ -2,7 +2,7 @@ package com.hust.similarity;
 
 import java.util.List;
 
-public class CrossSimilarity implements Similarity {
+public class CrossSimilarity extends Similarity {
 
     @Override
     public double calculate(double[] d1, double[] d2) {

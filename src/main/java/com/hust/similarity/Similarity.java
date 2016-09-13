@@ -2,7 +2,7 @@ package com.hust.similarity;
 
 import java.util.List;
 
-public interface Similarity {
+public abstract class Similarity {
 
     /**
      * 计算两个向量的相似度
@@ -11,7 +11,7 @@ public interface Similarity {
      * @param vector2
      * @return
      */
-    double calculate(double[] vector1, double[] vector2);
+    public abstract double calculate(double[] vector1, double[] vector2);
 
     /**
      * 计算某个向量和一组向量的相似度的平均值
@@ -20,5 +20,5 @@ public interface Similarity {
      * @param list
      * @return
      */
-    double calculate(double[] vector, List<double[]> list);
+    public abstract double calculate(double[] vector, List<double[]> list);
 }
