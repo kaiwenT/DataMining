@@ -27,16 +27,28 @@ public class ClusterTest {
         String[] str7 = { "12岁", "住校", "女生", "宿舍", "身亡" };
         String[] str8 = { "12岁", "女生", "宿舍", "内", "上吊", "室友", "以为", "玩笑", "错失", "施救", "机会" };
         segList.add(str8);
+        segList.add(str8);
+        segList.add(str8);
+        segList.add(str8);
+        segList.add(str8);
         segList.add(str7);
         segList.add(str6);
+        segList.add(str5);
+        segList.add(str5);
+        segList.add(str5);
+        segList.add(str5);
         segList.add(str5);
         segList.add(str4);
         segList.add(str3);
         segList.add(str2);
         segList.add(str1);
+        segList.add(str4);
+        segList.add(str4);
+        segList.add(str4);
+        segList.add(str4);
     }
 
-     @Test
+//     @Test
     public void capony() {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
@@ -63,14 +75,14 @@ public class ClusterTest {
         }
     }
 
-//    @Test
+    @Test
     public void kmeans() {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
         List<double[]> vectors = convertor.getVector();
         KMeans kmeans = new KMeans();
         kmeans.setVectors(vectors);
-        kmeans.setIterationTimes(30);
+        kmeans.setIterationTimes(20);
         kmeans.setK(3);
         try {
             kmeans.clustering();

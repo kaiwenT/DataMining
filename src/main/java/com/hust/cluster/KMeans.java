@@ -105,7 +105,10 @@ public class KMeans extends Cluster {
     /**
      * 选择随机中心点
      */
-    private void selectRandomCenterPoints() {
+    private void selectRandomCenterPoints() throws Exception {
+        if (K >= vectors.size()) {
+            throw new IllegalArgumentException("K 的值必须小于元素的个数");
+        }
         List<Integer> centerIndexs = new ArrayList<Integer>();
         centerPoints = new ArrayList<double[]>();
         Random randomMaker = new Random();
