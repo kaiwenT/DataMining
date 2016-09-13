@@ -72,7 +72,7 @@ public class KMeans extends Cluster {
             for (int i = 0; i < vectors.size(); i++) {
                 addToClosestSet(i);
             }
-            updateCenters();
+            updateCenterPoints();
         }
     }
 
@@ -169,7 +169,7 @@ public class KMeans extends Cluster {
     /**
      * 更新簇中心点
      */
-    private void updateCenters() {
+    private void updateCenterPoints() {
         oldCenterPoints = new ArrayList<double[]>(centerPoints);
         for (int i = 0; i < K; i++) {
             List<Integer> setIndex = resultIndex.get(i);
