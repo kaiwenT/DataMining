@@ -11,7 +11,8 @@ public class TFIDFConvertor extends Convertor {
             return null;
         }
         List<double[]> list = new ArrayList<double[]>();
-        for (String[] array : seglist) {
+        List<String[]> filterSegList = filter(seglist);
+        for (String[] array : filterSegList) {
             double[] vector = new double[vectorBase.size()];
             for (String word : array) {
                 double TF = (float) existAmountInArticle(word, array) / (float) array.length;
@@ -21,6 +22,24 @@ public class TFIDFConvertor extends Convertor {
             list.add(vector);
         }
         return list;
+    }
+
+    private List<String[]> filter(List<String[]> segList) {
+        List<String[]> result = new ArrayList<String[]>();
+        if (null == segList || segList.size() == 1) {
+            return result;
+        }
+        for (String[] array : segList) {
+            List<String> tmpList = new ArrayList<String>();
+            for (String word : array) {
+                if (!tmpList.contains(word)) {
+                    tmpList.add(word);
+                }
+            }
+            String[] newArray = (String[]) tmpList.toArray(new String[tmpList.size()]);
+            result.add(newArray);
+        }
+        return result;
     }
 
     /**
