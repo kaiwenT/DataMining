@@ -1,8 +1,13 @@
-package com.hust.similarity;
+package com.hust.distance;
 
 import java.util.List;
 
-public class CrossSimilarity extends Similarity {
+public class AcrossDistance extends Distance {
+
+    public AcrossDistance(List<double[]> vectors) {
+        super(vectors);
+        // TODO Auto-generated constructor stub
+    }
 
     @Override
     public double calculate(double[] vector1, double[] vector2) {
@@ -25,12 +30,23 @@ public class CrossSimilarity extends Similarity {
                 count2++;
             }
         }
-
         return (same / count1 + same / count2) / 2;
     }
 
     @Override
-    public double calculate(double[] vector, List<double[]> list) {
+    public double getDistance(int index, List<Integer> set) {
+        if (index < 0 || set == null || set.size() == 0) {
+            return 0;
+        }
+        double sum = 0;
+        for (int i : set) {
+            sum += getDistance(index, i);
+        }
+        return sum / set.size();
+    }
+
+    @Override
+    public double getDistance(double[] vector, List<double[]> list) {
         if (null == vector || null == list || vector.length == 0 || list.size() == 0) {
             return 0;
         }

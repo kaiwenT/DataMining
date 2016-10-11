@@ -2,11 +2,11 @@ package com.hust.cluster;
 
 import java.util.List;
 
-import com.hust.similarity.Similarity;
+import com.hust.distance.Distance;
 
 public abstract class Cluster {
     protected List<double[]> vectors;
-    protected Similarity similarity;
+    protected Distance dis;
 
     protected List<List<Integer>> resultIndex;
     protected List<List<double[]>> resultVector;
@@ -27,13 +27,14 @@ public abstract class Cluster {
         this.vectors = vectors;
     }
 
-    public Similarity getSimilarity() {
-        return similarity;
-    }
-
-    public void setSimilarity(Similarity similarity) {
-        this.similarity = similarity;
-    }
-
     public abstract void clustering() throws Exception;
+
+    public Distance getDis() {
+        return dis;
+    }
+
+    public void setDis(Distance dis) {
+        this.dis = dis;
+    }
+
 }

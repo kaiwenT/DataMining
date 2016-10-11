@@ -10,7 +10,7 @@ import com.hust.cluster.Canopy;
 import com.hust.cluster.KMeans;
 import com.hust.convertor.Convertor;
 import com.hust.convertor.TFIDFConvertor;
-import com.hust.similarity.CloestOneSimilarity;
+import com.hust.distance.CosDistance;
 
 public class ClusterTest {
 
@@ -84,7 +84,7 @@ public class ClusterTest {
         KMeans kmeans = new KMeans();
         kmeans.setVectors(vectors);
         kmeans.setIterationTimes(20);
-        kmeans.setSimilarity(new CloestOneSimilarity());
+        kmeans.setDis(new CosDistance(vectors));
         kmeans.setK(4);
         try {
             kmeans.clustering();

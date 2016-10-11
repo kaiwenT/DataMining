@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import com.hust.similarity.CosSimilarity;
+import com.hust.distance.CosDistance;
 
 public class KMeans extends Cluster {
 
@@ -60,8 +60,8 @@ public class KMeans extends Cluster {
         if (null == vectors || vectors.size() == 0) {
             throw new IllegalArgumentException("must init vectors before clustering");
         }
-        if (null == similarity) {
-            similarity = new CosSimilarity();
+        if (null == dis) {
+            dis = new CosDistance(vectors);
         }
         init();
         selectRandomCenterPoints();
@@ -151,7 +151,7 @@ public class KMeans extends Cluster {
         double[] vector = vectors.get(index);
         for (int i = 0; i < K; i++) {
             double[] centerPoint = centerPoints.get(i);
-            double sim = similarity.calculate(vector, centerPoint);
+            double sim = dis.calculate(vector, centerPoint);
             if (sim > maxsim) {
                 maxsim = sim;
                 minset = i;

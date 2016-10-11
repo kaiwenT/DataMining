@@ -3,7 +3,7 @@ package com.hust.cluster;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hust.similarity.CosSimilarity;
+import com.hust.distance.CosDistance;
 
 public class Canopy extends Cluster {
 
@@ -22,30 +22,24 @@ public class Canopy extends Cluster {
         if (null == vectors || vectors.size() == 0) {
             throw new IllegalArgumentException("must init vectors before clustering");
         }
-        if (null == similarity) {
-            similarity = new CosSimilarity();
+        if (null == dis) {
+            dis = new CosDistance(vectors);
         }
         resultIndex = new ArrayList<List<Integer>>();
-        resultVector = new ArrayList<List<double[]>>();
         for (int i = 0; i < vectors.size(); i++) {
-            double[] vector = vectors.get(i);
             if (i == 0) {
                 List<Integer> setIndex = new ArrayList<Integer>();
                 setIndex.add(i);
                 resultIndex.add(setIndex);
-                List<double[]> setVector = new ArrayList<double[]>();
-                setVector.add(vector);
-                resultVector.add(setVector);
                 continue;
             }
             boolean findSet = false;
-            for (int j = 0; j < resultVector.size(); j++) {
-                List<double[]> tmpVector = resultVector.get(j);
-                double sim = similarity.calculate(vector, tmpVector);
+            for (int j = 0; j < resultIndex.size(); j++) {
+                List<Integer> tmpVector = resultIndex.get(j);
+                double sim = dis.getDistance(i, tmpVector);
                 if (sim >= threshold) {
                     List<Integer> tmpIndex = resultIndex.get(j);
                     tmpIndex.add(i);
-                    tmpVector.add(vector);
                     findSet = true;
                     break;
                 }
@@ -54,9 +48,6 @@ public class Canopy extends Cluster {
                 List<Integer> setIndex = new ArrayList<Integer>();
                 setIndex.add(i);
                 resultIndex.add(setIndex);
-                List<double[]> setVector = new ArrayList<double[]>();
-                setVector.add(vector);
-                resultVector.add(setVector);
             }
         }
     }
