@@ -28,10 +28,10 @@ public class ClusterTest {
         String[] str6 = { "12岁", "男生", "家中", "上演", "自杀", "死亡", "家人", "错过", "2次", "施救", "机会" };
         String[] str7 = { "12岁", "男生", "家中", "上演", "自杀", "死亡", "家人", "失去", "2次", "施救", "机会" };
         String[] str8 = { "12岁", "男生", "家中", "上演", "自杀", "死亡", "家人", "失去", "2次", "补刀", "机会" };
-//        String[] str2 = { "12岁", "女生", "宿舍", "内", "上吊", "室友", "以为", "玩笑", "错失", "施救", "机会" };
-//        String[] str3 = { "12岁", "住校", "女生", "宿舍", "身亡" };
-//        String[] str4 = { "陕西", "手机", "早报", "0402" };
-//        String[] str5 = { "四川", "通报", "小学", "女生", "死亡", "事件", "系", "意外", "排除", "他", "杀" };
+        // String[] str2 = { "12岁", "女生", "宿舍", "内", "上吊", "室友", "以为", "玩笑", "错失", "施救", "机会" };
+        // String[] str3 = { "12岁", "住校", "女生", "宿舍", "身亡" };
+        // String[] str4 = { "陕西", "手机", "早报", "0402" };
+        // String[] str5 = { "四川", "通报", "小学", "女生", "死亡", "事件", "系", "意外", "排除", "他", "杀" };
         segList.add(str1);
         segList.add(str2);
         segList.add(str3);
@@ -40,29 +40,29 @@ public class ClusterTest {
         segList.add(str6);
         segList.add(str7);
         segList.add(str8);
-//        segList.add(str2);
-//        segList.add(str2);
-//        segList.add(str2);
-//        segList.add(str2);
-//        segList.add(str2);
-//        segList.add(str3);
-//        segList.add(str5);
-//        segList.add(str5);
-//        segList.add(str5);
-//        segList.add(str5);
-//        segList.add(str5);
-//        segList.add(str5);
-//        segList.add(str4);
-//        segList.add(str3);
-//        segList.add(str2);
-//        segList.add(str1);
-//        segList.add(str4);
-//        segList.add(str4);
-//        segList.add(str4);
-//        segList.add(str4);
+        // segList.add(str2);
+        // segList.add(str2);
+        // segList.add(str2);
+        // segList.add(str2);
+        // segList.add(str2);
+        // segList.add(str3);
+        // segList.add(str5);
+        // segList.add(str5);
+        // segList.add(str5);
+        // segList.add(str5);
+        // segList.add(str5);
+        // segList.add(str5);
+        // segList.add(str4);
+        // segList.add(str3);
+        // segList.add(str2);
+        // segList.add(str1);
+        // segList.add(str4);
+        // segList.add(str4);
+        // segList.add(str4);
+        // segList.add(str4);
     }
 
-//     @Test
+    // @Test
     public void capony() {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
@@ -145,5 +145,15 @@ public class ClusterTest {
             }
             System.out.println();
         }
+        List<Integer> noise = dbscan.getNoisePts();
+        System.out.println("noise");
+        for (int index : noise) {
+            String[] array = segList.get(index);
+            for (String str : array) {
+                System.out.print(str);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }

@@ -14,7 +14,7 @@ public class DBScan extends Cluster {
     private double eps; // 半径
 
     private List<Integer> kernelPts; // 核心点
-    private List<Integer> uKernelPts; // 非核心点
+    private List<Integer> noisePts; // 非核心点
     private Map<Integer, List<Integer>> map; // 每个点的邻居
 
     public int getMinPts() {
@@ -43,7 +43,7 @@ public class DBScan extends Cluster {
             dis = new CosDistance(vectors);
         }
         kernelPts = new ArrayList<Integer>();
-        uKernelPts = new ArrayList<Integer>();
+        noisePts = new ArrayList<Integer>();
         map = new HashMap<Integer, List<Integer>>();
         resultIndex = new ArrayList<List<Integer>>();
         for (int i = 0; i < vectors.size(); i++) {
@@ -51,7 +51,7 @@ public class DBScan extends Cluster {
             if (neighbor.size() >= minPts) {
                 kernelPts.add(i);
             } else {
-                uKernelPts.add(i);
+                noisePts.add(i);
             }
             map.put(i, neighbor);
         }
@@ -90,5 +90,9 @@ public class DBScan extends Cluster {
             }
             resultIndex.add(tmpSet);
         }
+    }
+
+    public List<Integer> getNoisePts() {
+        return noisePts;
     }
 }
