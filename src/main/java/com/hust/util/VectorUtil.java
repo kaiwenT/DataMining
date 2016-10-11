@@ -36,6 +36,6 @@ public class VectorUtil {
         for (int i = 0; i < v1.length; i++) {
             sum += v1[i] * v2[i];
         }
-        return Math.sqrt(sum);
+        return sum;
     }
 }

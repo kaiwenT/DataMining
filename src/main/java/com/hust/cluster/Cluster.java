@@ -9,14 +9,9 @@ public abstract class Cluster {
     protected Distance dis;
 
     protected List<List<Integer>> resultIndex;
-    protected List<List<double[]>> resultVector;
 
     public List<List<Integer>> getResultIndex() {
         return resultIndex;
-    }
-
-    public List<List<double[]>> getResultVector() {
-        return resultVector;
     }
 
     public List<double[]> getVectors() {

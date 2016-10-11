@@ -20,7 +20,7 @@ public abstract class Distance {
         for (int i = 0; i < vectors.size(); i++) {
             for (int j = i; j < vectors.size(); j++) {
                 if (i == j) {
-                    matrix[i][j] = 0;
+                    matrix[i][j] = 1;
                     continue;
                 }
                 matrix[i][j] = calculate(vectors.get(i), vectors.get(j));
@@ -29,7 +29,7 @@ public abstract class Distance {
         }
     }
 
-    protected double getDistance(int index1, int index2) {
+    public double getDistance(int index1, int index2) {
         if (null == matrix) {
             throw new IllegalArgumentException("must init matrix first");
         }

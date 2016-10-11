@@ -39,10 +39,7 @@ public class KMeans extends Cluster {
             throw new IllegalArgumentException("must init K before clustering");
         }
         resultIndex = new ArrayList<List<Integer>>();
-        resultVector = new ArrayList<List<double[]>>();
         for (int i = 0; i < K; i++) {
-            List<double[]> setVector = new ArrayList<double[]>();
-            resultVector.add(setVector);
             List<Integer> setIndex = new ArrayList<Integer>();
             resultIndex.add(setIndex);
         }
@@ -51,7 +48,6 @@ public class KMeans extends Cluster {
     private void clear() {
         for (int i = 0; i < K; i++) {
             resultIndex.get(i).clear();
-            resultVector.get(i).clear();
         }
     }
 
@@ -162,8 +158,6 @@ public class KMeans extends Cluster {
         }
         List<Integer> setIndex = resultIndex.get(minset);
         setIndex.add(index);
-        List<double[]> setVector = resultVector.get(minset);
-        setVector.add(vectors.get(index));
     }
 
     /**
