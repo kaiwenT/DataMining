@@ -1,6 +1,6 @@
-package com.hust.contrant;
+package com.hust.contant;
 
-public class Constrants {
+public class Constants {
 
     public static class VARIABLE_TYPE {
         public static final String DIGIT = "DIGIT";
