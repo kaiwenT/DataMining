@@ -1,6 +1,6 @@
 package com.hust.optimize;
 
-public abstract class Data {
+public class Data {
     private float value;
     private int index;
 

@@ -1,32 +1,29 @@
-package com.hust.util;
+package com.hust.test;
 
 import java.util.List;
 
 import org.junit.Test;
 
-import com.hust.cluster.KMeans;
+import com.hust.cluster.Canopy;
 import com.hust.convertor.Convertor;
 import com.hust.convertor.TFIDFConvertor;
-import com.hust.distance.CosDistance;
 
-public class KMeansTest extends ClusterTest {
+public class CanopyTest extends ClusterTest {
     @Test
-    public void kmeans() {
+    public void capony() {
         Convertor convertor = new TFIDFConvertor();
         convertor.setList(segList);
         List<double[]> vectors = convertor.getVector();
-        KMeans kmeans = new KMeans();
-        kmeans.setVectors(vectors);
-        kmeans.setIterationTimes(20);
-        kmeans.setDis(new CosDistance(vectors));
-        kmeans.setK(4);
+        Canopy canopy = new Canopy();
+        canopy.setVectors(vectors);
+        canopy.setThreshold(0.68f);
         try {
-            kmeans.clustering();
+            canopy.clustering();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        List<List<Integer>> result = kmeans.getResultIndex();
+        List<List<Integer>> result = canopy.getResultIndex();
         for (List<Integer> set : result) {
             for (int index : set) {
                 String[] array = segList.get(index);

@@ -1,6 +1,8 @@
 package com.hust.util;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class CommonUtils {
 
@@ -16,6 +18,7 @@ public class CommonUtils {
         return false;
     }
 
+    @SuppressWarnings("rawtypes")
     public static boolean hasEmpty(List...list) {
         if (null == list || list.length == 0) {
             return true;
@@ -38,5 +41,36 @@ public class CommonUtils {
             }
         }
         return false;
+    }
+
+    public static List<Integer> generateRandomIntList(int bound, int number) {
+        Random ran = new Random();
+        if (number == 0) {
+            number = ran.nextInt(bound);
+        }
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i = 0; i < number; i++) {
+            int tmp = ran.nextInt(bound);
+            if (list.contains(tmp)) {
+                i--;
+                continue;
+            }
+            list.add(tmp);
+        }
+        return list;
+    }
+
+    public static List<Float> generateRandomFloatList(int number) {
+        Random ran = new Random();
+        List<Float> list = new ArrayList<Float>();
+        for (int i = 0; i < number; i++) {
+            float tmp = ran.nextFloat();
+            if (list.contains(tmp)) {
+                i--;
+                continue;
+            }
+            list.add(tmp);
+        }
+        return list;
     }
 }

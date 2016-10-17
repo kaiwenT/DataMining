@@ -1,4 +1,4 @@
-package com.hust.util;
+package com.hust.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
