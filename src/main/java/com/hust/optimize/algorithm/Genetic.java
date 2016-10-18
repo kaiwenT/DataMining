@@ -247,13 +247,10 @@ public class Genetic {
         if (data == null || data.length == 0) {
             throw new IllegalArgumentException("input data cannot be empty and null");
         }
-        if (maxGeneration == 0) {
-            throw new IllegalArgumentException("maxGeneration must be bigger than 0");
-        }
         init();
         flush();
         if (generations == null || generations.size() == 0) {
-            throw new IllegalArgumentException("initGroup cannot be empty and null");
+            throw new RuntimeException("initGroup cannot be empty and null");
         }
         printInit();
         int loop = 0;
