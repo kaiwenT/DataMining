@@ -12,7 +12,7 @@ public class Genetic {
     private int maxGeneration;
     private int initialNumber;
     private LinkedList<float[]> generations;
-    private LinkedList<Float> values;
+    private LinkedList<Float> distances;
     private float[] data;
     private float targetValue;
     private float[] OptimalVector;
@@ -109,7 +109,7 @@ public class Genetic {
 
     private void sort() {
         sortedList.clear();
-        LinkedList<Float> tmpvalues = new LinkedList<Float>(values);
+        LinkedList<Float> tmpvalues = new LinkedList<Float>(distances);
         int num = 0;
         while (num < tmpvalues.size()) {
             float min = Float.MAX_VALUE;
@@ -175,7 +175,7 @@ public class Genetic {
     }
 
     private void evaluate() {
-        values.clear();
+        distances.clear();
         Iterator<float[]> iterator = generations.iterator();
         while (iterator.hasNext()) {
             float[] vector = iterator.next();
@@ -186,7 +186,7 @@ public class Genetic {
             for (int i = 0; i < vector.length; i++) {
                 sum += vector[i] * data[i];
             }
-            values.add(Math.abs(sum - targetValue));
+            distances.add(Math.abs(sum - targetValue));
         }
     }
 
@@ -199,14 +199,14 @@ public class Genetic {
         Arrays.sort(deletenums);
         for (int i = deletenums.length - 1; i >= 0; i--) {
             generations.remove(deletenums[i]);
-            values.remove(deletenums[i]);
+            distances.remove(deletenums[i]);
         }
     }
 
     private void init() {
         vectorlength = data.length;
         generations = new LinkedList<float[]>();
-        values = new LinkedList<Float>();
+        distances = new LinkedList<Float>();
         sortedList = new ArrayList<Integer>();
         for (int i = 0; i < initialNumber; i++) {
             float[] vector = new float[vectorlength];
@@ -229,7 +229,7 @@ public class Genetic {
         System.out.println("maxGeneration:" + maxGeneration);
         System.out.println("initial generations:");
         Iterator<float[]> vectorIte = generations.iterator();
-        Iterator<Float> valueIte = values.iterator();
+        Iterator<Float> valueIte = distances.iterator();
         while (vectorIte.hasNext() && valueIte.hasNext()) {
             System.out.println("vector:" + Arrays.toString(vectorIte.next()) + "\t value:" + valueIte.next());
         }
@@ -240,7 +240,7 @@ public class Genetic {
         for (int i = 0; i < data.length; i++) {
             sum += vector[i] * data[i];
         }
-        System.out.println("vector:" + Arrays.toString(vector) + "\t mutiple:" + sum);
+        System.out.println("vector:" + Arrays.toString(vector) + "\t output:" + sum);
     }
 
     public void processing() {
@@ -267,9 +267,9 @@ public class Genetic {
             select();
             System.out.println("generation index : " + loop + "\t" + "generation count:" + generations.size());
             Iterator<float[]> vectorIte = generations.iterator();
-            Iterator<Float> valueIte = values.iterator();
+            Iterator<Float> valueIte = distances.iterator();
             while (vectorIte.hasNext() && valueIte.hasNext()) {
-                System.out.println("vector:" + Arrays.toString(vectorIte.next()) + "\t value:" + valueIte.next());
+                System.out.println("vector:" + Arrays.toString(vectorIte.next()) + "\t distance:" + valueIte.next());
             }
             loop++;
         }
