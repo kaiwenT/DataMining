@@ -7,6 +7,10 @@ public abstract class Distance {
     private List<double[]> vectors;
     private double[][] matrix;
 
+    public Distance() {
+        
+    }
+
     public Distance(List<double[]> vectors) {
         this.vectors = vectors;
         init();

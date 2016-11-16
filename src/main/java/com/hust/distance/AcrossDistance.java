@@ -4,6 +4,9 @@ import java.util.List;
 
 public class AcrossDistance extends Distance {
 
+    public AcrossDistance() {
+    }
+
     public AcrossDistance(List<double[]> vectors) {
         super(vectors);
         // TODO Auto-generated constructor stub

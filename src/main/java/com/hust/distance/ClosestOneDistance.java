@@ -6,6 +6,11 @@ import com.hust.util.VectorUtil;
 
 public class ClosestOneDistance extends Distance {
 
+    public ClosestOneDistance() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     public ClosestOneDistance(List<double[]> vectors) {
         super(vectors);
         // TODO Auto-generated constructor stub

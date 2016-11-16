@@ -6,6 +6,11 @@ import com.hust.util.VectorUtil;
 
 public class CosDistance extends Distance {
 
+    public CosDistance() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     public CosDistance(List<double[]> vectors) {
         super(vectors);
         // TODO Auto-generated constructor stub
