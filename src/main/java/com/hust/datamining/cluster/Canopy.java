@@ -1,9 +1,9 @@
-package com.hust.cluster;
+package com.hust.datamining.cluster;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hust.distance.CosDistance;
+import com.hust.datamining.distance.CosDistance;
 
 public class Canopy extends Cluster {
 

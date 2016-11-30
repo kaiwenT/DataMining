@@ -1,4 +1,4 @@
-package com.hust.convertor;
+package com.hust.datamining.convertor;
 
 import java.util.ArrayList;
 import java.util.List;

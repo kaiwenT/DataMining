@@ -1,4 +1,4 @@
-package com.hust.distance;
+package com.hust.datamining.distance;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.hust.cluster;
+package com.hust.datamining.cluster;
 
 import java.util.List;
 
-import com.hust.distance.Distance;
+import com.hust.datamining.distance.Distance;
 
 public abstract class Cluster {
     protected List<double[]> vectors;

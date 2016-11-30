@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.hust.cluster.Canopy;
-import com.hust.convertor.Convertor;
-import com.hust.convertor.TFIDFConvertor;
+import com.hust.datamining.cluster.Canopy;
+import com.hust.datamining.convertor.Convertor;
+import com.hust.datamining.convertor.TFIDFConvertor;
 
 public class CanopyTest extends ClusterTest {
     @Test

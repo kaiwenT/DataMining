@@ -1,4 +1,4 @@
-package com.hust.contant;
+package com.hust.datamining.contant;
 
 public class Constants {
 

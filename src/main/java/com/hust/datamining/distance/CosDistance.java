@@ -1,8 +1,8 @@
-package com.hust.distance;
+package com.hust.datamining.distance;
 
 import java.util.List;
 
-import com.hust.util.VectorUtil;
+import com.hust.datamining.util.VectorUtil;
 
 public class CosDistance extends Distance {
 

@@ -1,11 +1,11 @@
-package com.hust.cluster;
+package com.hust.datamining.cluster;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import com.hust.distance.CosDistance;
+import com.hust.datamining.distance.CosDistance;
 
 public class KMeans extends Cluster {
 
