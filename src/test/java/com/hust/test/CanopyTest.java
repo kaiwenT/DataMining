@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.hust.datamining.cluster.Canopy;
+import com.hust.datamining.algorithm.cluster.Canopy;
 import com.hust.datamining.convertor.Convertor;
 import com.hust.datamining.convertor.TFIDFConvertor;
 

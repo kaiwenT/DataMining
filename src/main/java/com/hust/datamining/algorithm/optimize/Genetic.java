@@ -1,4 +1,4 @@
-package com.hust.datamining.optimize.algorithm;
+package com.hust.datamining.algorithm.optimize;
 
 import java.util.ArrayList;
 import java.util.Arrays;

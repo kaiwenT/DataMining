@@ -1,4 +1,4 @@
-package com.hust.datamining.cluster;
+package com.hust.datamining.algorithm.cluster;
 
 import java.util.List;
 

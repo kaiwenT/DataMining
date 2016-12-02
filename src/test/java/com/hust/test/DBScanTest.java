@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.hust.datamining.cluster.DBScan;
+import com.hust.datamining.algorithm.cluster.DBScan;
 import com.hust.datamining.convertor.Convertor;
 import com.hust.datamining.convertor.TFIDFConvertor;
 import com.hust.datamining.distance.CosDistance;

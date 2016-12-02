@@ -3,7 +3,7 @@ package com.hust.test;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hust.datamining.optimize.algorithm.Genetic;
+import com.hust.datamining.algorithm.optimize.Genetic;
 
 public class GeneticTest {
     private int[] inputs;
