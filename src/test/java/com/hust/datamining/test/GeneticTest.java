@@ -1,4 +1,4 @@
-package com.hust.test;
+package com.hust.datamining.test;
 
 import org.junit.Before;
 import org.junit.Test;

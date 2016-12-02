@@ -1,4 +1,4 @@
-package com.hust.test;
+package com.hust.datamining.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

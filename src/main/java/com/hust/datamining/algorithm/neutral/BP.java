@@ -1,5 +1,6 @@
 package com.hust.datamining.algorithm.neutral;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -19,8 +20,8 @@ public class BP {
 
     private static double[] REAL_INPUT;
     private static double[] REAL_OUTPUT;
-    private static List<double[]> inputs;
-    private static List<double[]> outputs;
+    private List<double[]> inputs;
+    private List<double[]> outputs;
 
     private static double[] GRADIENT2OUTPUTLEVEL;
     private static double[] GRADIENT2HIDELEVEL;
@@ -28,16 +29,31 @@ public class BP {
     private static double[][] WEIGHT_HIDE_OUTPUT;
     private static double[][] WEIGHT_HIDE_INPUT;
 
-    private static final double SP = 0.005;
-    private static double ERROR;
-    private static long ITER;
+    private static final double SP = 0.09;
+    private static double ERROR = Double.MAX_VALUE;
+    private static long ITER = 0;
 
-    private static long MAX_ITER;
-    private static double MIN_ERROR;
+    private long MAX_ITER;
+    private double MIN_ERROR;
 
     private void init() {
         INPUT_LENGTH = inputs.get(0).length;
         OUTPUT_LENGTH = outputs.get(0).length;
+
+        INPUT2OUTPUTLEVEL = new double[OUTPUT_LENGTH];
+        OUTPUT2OUTPUTLEVEL = new double[OUTPUT_LENGTH];
+        THRESHOLD2OUTPUTLEVEL = new double[OUTPUT_LENGTH];
+
+        INPUT2HIDELEVEL = new double[HIDE_LENGTH];
+        OUTPUT2HIDELEVEL = new double[HIDE_LENGTH];
+        THRESHOLD2HIDELEVEL = new double[HIDE_LENGTH];
+
+        GRADIENT2HIDELEVEL = new double[HIDE_LENGTH];
+        GRADIENT2OUTPUTLEVEL = new double[OUTPUT_LENGTH];
+
+        WEIGHT_HIDE_INPUT = new double[INPUT_LENGTH][HIDE_LENGTH];
+        WEIGHT_HIDE_OUTPUT = new double[HIDE_LENGTH][OUTPUT_LENGTH];
+
         Random ran = new Random();
         for (int i = 0; i < INPUT_LENGTH; i++) {
             for (int j = 0; j < HIDE_LENGTH; j++) {
@@ -79,17 +95,21 @@ public class BP {
 
     private void calInput4OutputLevel() {
         for (int i = 0; i < OUTPUT_LENGTH; i++) {
+            double tmpSum = 0;
             for (int j = 0; j < HIDE_LENGTH; j++) {
-                INPUT2OUTPUTLEVEL[i] += WEIGHT_HIDE_OUTPUT[j][i] * OUTPUT2HIDELEVEL[j];
+                tmpSum += WEIGHT_HIDE_OUTPUT[j][i] * OUTPUT2HIDELEVEL[j];
             }
+            INPUT2OUTPUTLEVEL[i] = tmpSum;
         }
     }
 
     private void calInput4HideLevel() {
         for (int i = 0; i < HIDE_LENGTH; i++) {
+            double tmpSum = 0;
             for (int j = 0; j < INPUT_LENGTH; j++) {
-                INPUT2HIDELEVEL[i] += WEIGHT_HIDE_INPUT[j][i] * REAL_INPUT[j];
+                tmpSum += WEIGHT_HIDE_INPUT[j][i] * REAL_INPUT[j];
             }
+            INPUT2HIDELEVEL[i] = tmpSum;
         }
     }
 
@@ -110,6 +130,7 @@ public class BP {
         for (int i = 0; i < OUTPUT_LENGTH; i++) {
             GRADIENT2OUTPUTLEVEL[i] =
                     OUTPUT2OUTPUTLEVEL[i] * (1 - OUTPUT2OUTPUTLEVEL[i]) * (REAL_OUTPUT[i] - OUTPUT2OUTPUTLEVEL[i]);
+            // GRADIENT2OUTPUTLEVEL[i] = SP * (REAL_OUTPUT[i] - OUTPUT2OUTPUTLEVEL[i]);
         }
     }
 
@@ -122,6 +143,7 @@ public class BP {
             for (int j = 0; j < OUTPUT_LENGTH; j++) {
                 tmpsum += WEIGHT_HIDE_OUTPUT[i][j] * GRADIENT2OUTPUTLEVEL[j];
             }
+            // GRADIENT2HIDELEVEL[i] = SP * tmpsum;
             GRADIENT2HIDELEVEL[i] = OUTPUT2HIDELEVEL[i] * (1 - OUTPUT2HIDELEVEL[i]) * tmpsum;
         }
     }
@@ -132,7 +154,7 @@ public class BP {
     private void update() {
         for (int i = 0; i < OUTPUT_LENGTH; i++) {
             for (int j = 0; j < HIDE_LENGTH; j++) {
-                WEIGHT_HIDE_OUTPUT[j][i] += SP * GRADIENT2OUTPUTLEVEL[i] * GRADIENT2HIDELEVEL[j];
+                WEIGHT_HIDE_OUTPUT[j][i] += SP * GRADIENT2OUTPUTLEVEL[i] * OUTPUT2HIDELEVEL[j];
             }
         }
 
@@ -189,70 +211,94 @@ public class BP {
         calInput4HideLevel();
         calOutput4HideLevel();
         calInput4OutputLevel();
-        calInput4OutputLevel();
+        calOutput4OutputLevel();
         return OUTPUT2OUTPUTLEVEL;
     }
+
+//    private void clear() {
+//        INPUT2OUTPUTLEVEL = new double[OUTPUT_LENGTH];
+//        OUTPUT2OUTPUTLEVEL = new double[OUTPUT_LENGTH];
+//
+//        INPUT2HIDELEVEL = new double[HIDE_LENGTH];
+//        OUTPUT2HIDELEVEL = new double[HIDE_LENGTH];
+//    }
 
     public void train() {
         init();
         int NUM = inputs.size();
         while (isContinue()) {
+            System.out.println("正在进行第 " + ITER + " 次迭代");
             for (int n = 0; n < NUM; n++) {
                 REAL_INPUT = inputs.get(n);
+                REAL_OUTPUT = outputs.get(n);
                 calInput4HideLevel();
                 calOutput4HideLevel();
                 calInput4OutputLevel();
                 calOutput4OutputLevel();
                 calGradient4OutputLevel();
                 calGradient2HideLevel();
+                // System.out.println("隐层-输出层权重：");
+                // for (double[] w : WEIGHT_HIDE_OUTPUT) {
+                // System.out.println(Arrays.toString(w));
+                // }
+                // System.out.println("标准输出: " + Arrays.toString(REAL_OUTPUT));
+                // System.out.println("实际输出: " + Arrays.toString(OUTPUT2OUTPUTLEVEL));
+                //
+                // System.out.println("隐层梯度：" + Arrays.toString(GRADIENT2HIDELEVEL));
+                // System.out.println("输出层梯度：" + Arrays.toString(GRADIENT2OUTPUTLEVEL));
                 update();
+                // System.out.println("更新后隐层-输出层权重：");
+                // for (double[] w : WEIGHT_HIDE_OUTPUT) {
+                // System.out.println(Arrays.toString(w));
+                // }
+                // System.out.println("******************************************************");
             }
             calError();
             ITER++;
         }
     }
 
-    public static int getHIDE_LENGTH() {
+    public int getHIDE_LENGTH() {
         return HIDE_LENGTH;
     }
 
-    public static void setHIDE_LENGTH(int hIDE_LENGTH) {
+    public void setHIDE_LENGTH(int hIDE_LENGTH) {
         HIDE_LENGTH = hIDE_LENGTH;
     }
 
-    public static List<double[]> getInputs() {
+    public List<double[]> getInputs() {
         return inputs;
     }
 
-    public static void setInputs(List<double[]> inputs) {
-        BP.inputs = inputs;
+    public void setInputs(List<double[]> inputs) {
+        this.inputs = inputs;
     }
 
-    public static List<double[]> getOutputs() {
+    public List<double[]> getOutputs() {
         return outputs;
     }
 
-    public static void setOutputs(List<double[]> outputs) {
-        BP.outputs = outputs;
+    public void setOutputs(List<double[]> outputs) {
+        this.outputs = outputs;
     }
 
     public static double getSp() {
         return SP;
     }
 
-    public static long getMAX_ITER() {
+    public long getMAX_ITER() {
         return MAX_ITER;
     }
 
-    public static void setMAX_ITER(long mAX_ITER) {
+    public void setMAX_ITER(long mAX_ITER) {
         MAX_ITER = mAX_ITER;
     }
 
-    public static double getMIN_ERROR() {
+    public double getMIN_ERROR() {
         return MIN_ERROR;
     }
 
-    public static void setMIN_ERROR(double mIN_ERROR) {
+    public void setMIN_ERROR(double mIN_ERROR) {
         MIN_ERROR = mIN_ERROR;
     }
 }

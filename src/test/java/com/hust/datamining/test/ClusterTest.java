@@ -1,4 +1,4 @@
-package com.hust.test;
+package com.hust.datamining.test;
 
 import java.util.ArrayList;
 import java.util.List;
