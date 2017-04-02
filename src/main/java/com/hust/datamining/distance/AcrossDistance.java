@@ -41,11 +41,14 @@ public class AcrossDistance extends Distance {
         if (index < 0 || set == null || set.size() == 0) {
             return 0;
         }
-        double sum = 0;
+        double maxsim = 0;
         for (int i : set) {
-            sum += getDistance(index, i);
+            double sim = getDistance(index, i);
+            if (maxsim < sim) {
+                maxsim = sim;
+            }
         }
-        return sum / set.size();
+        return maxsim;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class TFIDFConvertor extends Convertor {
      * @param word
      * @return
      */
-    private long existAmmountInCorpus(String word) {
+    public long existAmmountInCorpus(String word) {
         if (null == word || word.length() == 0) {
             return 0;
         }
