@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AcrossSimilarity extends Similarity {
 
-    protected AcrossSimilarity(List<double[]> vectors) {
+    public AcrossSimilarity(List<double[]> vectors) {
         super(vectors);
         // TODO Auto-generated constructor stub
     }
