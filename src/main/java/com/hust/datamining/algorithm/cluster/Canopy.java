@@ -36,7 +36,7 @@ public class Canopy extends Cluster {
             boolean findSet = false;
             for (int j = 0; j < resultIndex.size(); j++) {
                 List<Integer> tmpVector = resultIndex.get(j);
-                double sim = simi.getResult(i, tmpVector);
+                double sim = simi.getAvgResult(i, tmpVector);
                 if (sim >= threshold) {
                     List<Integer> tmpIndex = resultIndex.get(j);
                     tmpIndex.add(i);
