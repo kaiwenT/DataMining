@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.hust.datamining.algorithm.cluster.KMeans;
 import com.hust.datamining.convertor.Convertor;
 import com.hust.datamining.convertor.TFIDFConvertor;
-import com.hust.datamining.distance.CosDistance;
+import com.hust.datamining.simcal.CosSimilarity;
 
 public class KMeansTest extends ClusterTest {
     @Test
@@ -18,7 +18,7 @@ public class KMeansTest extends ClusterTest {
         KMeans kmeans = new KMeans();
         kmeans.setVectors(vectors);
         kmeans.setIterationTimes(20);
-        kmeans.setDis(new CosDistance(vectors));
+        kmeans.setSimi(new CosSimilarity(vectors));
         kmeans.setK(4);
         try {
             kmeans.clustering();

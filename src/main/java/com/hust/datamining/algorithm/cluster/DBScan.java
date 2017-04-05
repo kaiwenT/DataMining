@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.hust.datamining.distance.CosDistance;
+import com.hust.datamining.simcal.CosSimilarity;
 
 public class DBScan extends Cluster {
 
@@ -39,8 +39,8 @@ public class DBScan extends Cluster {
         if (null == vectors || vectors.size() == 0) {
             throw new IllegalArgumentException("must init vectors before clustering");
         }
-        if (null == dis) {
-            dis = new CosDistance(vectors);
+        if (null == simi) {
+            simi = new CosSimilarity(vectors);
         }
         kernelPts = new ArrayList<Integer>();
         noisePts = new ArrayList<Integer>();
@@ -61,7 +61,7 @@ public class DBScan extends Cluster {
     private List<Integer> findNeighbors(int index) {
         List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < vectors.size(); i++) {
-            double sim = dis.getDistance(index, i);
+            double sim = simi.getResult(index, i);
             if (sim >= eps) {
                 list.add(i);
             }

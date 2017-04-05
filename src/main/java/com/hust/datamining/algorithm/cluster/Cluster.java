@@ -2,11 +2,11 @@ package com.hust.datamining.algorithm.cluster;
 
 import java.util.List;
 
-import com.hust.datamining.distance.Distance;
+import com.hust.datamining.simcal.Similarity;
 
 public abstract class Cluster {
     protected List<double[]> vectors;
-    protected Distance dis;
+    protected Similarity simi;
 
     protected List<List<Integer>> resultIndex;
 
@@ -24,12 +24,12 @@ public abstract class Cluster {
 
     public abstract void clustering() throws Exception;
 
-    public Distance getDis() {
-        return dis;
+    public Similarity getSimi() {
+        return simi;
     }
 
-    public void setDis(Distance dis) {
-        this.dis = dis;
+    public void setSimi(Similarity simi) {
+        this.simi = simi;
     }
 
 }

@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.hust.datamining.algorithm.cluster.DBScan;
 import com.hust.datamining.convertor.Convertor;
 import com.hust.datamining.convertor.TFIDFConvertor;
-import com.hust.datamining.distance.CosDistance;
+import com.hust.datamining.simcal.CosSimilarity;
 
 public class DBScanTest extends ClusterTest {
 
@@ -18,7 +18,7 @@ public class DBScanTest extends ClusterTest {
         List<double[]> vectors = convertor.getVector();
         DBScan dbscan = new DBScan();
         dbscan.setVectors(vectors);
-        dbscan.setDis(new CosDistance(vectors));
+        dbscan.setSimi(new CosSimilarity(vectors));
         dbscan.setMinPts(2);
         dbscan.setEps(0.6);
         try {

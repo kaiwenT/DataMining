@@ -3,7 +3,7 @@ package com.hust.datamining.algorithm.cluster;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hust.datamining.distance.CosDistance;
+import com.hust.datamining.simcal.CosSimilarity;
 
 public class Canopy extends Cluster {
 
@@ -22,8 +22,8 @@ public class Canopy extends Cluster {
         if (null == vectors || vectors.size() == 0) {
             throw new IllegalArgumentException("must init vectors before clustering");
         }
-        if (null == dis) {
-            dis = new CosDistance(vectors);
+        if (null == simi) {
+            simi = new CosSimilarity(vectors);
         }
         resultIndex = new ArrayList<List<Integer>>();
         for (int i = 0; i < vectors.size(); i++) {
@@ -36,7 +36,7 @@ public class Canopy extends Cluster {
             boolean findSet = false;
             for (int j = 0; j < resultIndex.size(); j++) {
                 List<Integer> tmpVector = resultIndex.get(j);
-                double sim = dis.getDistance(i, tmpVector);
+                double sim = simi.getResult(i, tmpVector);
                 if (sim >= threshold) {
                     List<Integer> tmpIndex = resultIndex.get(j);
                     tmpIndex.add(i);
