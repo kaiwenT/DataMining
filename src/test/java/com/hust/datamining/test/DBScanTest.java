@@ -1,6 +1,10 @@
 package com.hust.datamining.test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.junit.Test;
 
@@ -21,13 +25,14 @@ public class DBScanTest extends ClusterTest {
         dbscan.setSimi(new CosSimilarity(vectors));
         dbscan.setMinPts(2);
         dbscan.setEps(0.6);
+        ExecutorService exec = Executors.newSingleThreadExecutor();
+        Future<List<List<Integer>>> future = exec.submit(dbscan);
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
         try {
-            dbscan.clustering();
+            result = future.get();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        List<List<Integer>> result = dbscan.getResultIndex();
         for (List<Integer> set : result) {
             for (int index : set) {
                 String[] array = segList.get(index);

@@ -1,6 +1,10 @@
 package com.hust.datamining.test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.junit.Test;
 
@@ -20,13 +24,14 @@ public class KMeansTest extends ClusterTest {
         kmeans.setIterationTimes(20);
         kmeans.setSimi(new CosSimilarity(vectors));
         kmeans.setK(4);
+        ExecutorService exec = Executors.newSingleThreadExecutor();
+        Future<List<List<Integer>>> future = exec.submit(kmeans);
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
         try {
-            kmeans.clustering();
+            result = future.get();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        List<List<Integer>> result = kmeans.getResultIndex();
         for (List<Integer> set : result) {
             for (int index : set) {
                 String[] array = segList.get(index);
